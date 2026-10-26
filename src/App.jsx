@@ -1,5 +1,4 @@
-
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
 
 import EnvelopeIntro from './components/EnvelopeIntro'
@@ -372,6 +371,8 @@ export default function App() {
   const [envelopeOpened, setEnvelopeOpened] = useState(false)
   const [musicPlaying, setMusicPlaying] = useState(false)
   const [musicVolume, setMusicVolume] = useState(0.35)
+  const [musicControlsOpen, setMusicControlsOpen] = useState(false)
+  const resumeMusicOnReturn = useRef(false)
   const [dateRevealed, setDateRevealed] = useState(false)
 
   const musicRef = useRef(null)
@@ -385,14 +386,14 @@ export default function App() {
   function openInvitation() {
     const audio = musicRef.current
 
+    setEnvelopeOpened(true)
+
     if (audio) {
       audio.volume = musicVolume
       audio.play()
         .then(() => setMusicPlaying(true))
         .catch(() => setMusicPlaying(false))
     }
-
-    setEnvelopeOpened(true)
   }
 
   function toggleMusic() {
@@ -418,6 +419,32 @@ export default function App() {
       musicRef.current.volume = volume
     }
   }
+
+  // Pause when the visitor leaves this tab; resume if it was playing before.
+  useEffect(() => {
+    function handleVisibilityChange() {
+      const audio = musicRef.current
+      if (!audio) return
+
+      if (document.visibilityState === 'hidden') {
+        resumeMusicOnReturn.current = !audio.paused
+
+        if (!audio.paused) {
+          audio.pause()
+        }
+      } else if (resumeMusicOnReturn.current && envelopeOpened) {
+        resumeMusicOnReturn.current = false
+        audio.volume = musicVolume
+        audio.play().catch(() => setMusicPlaying(false))
+      }
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
+  }, [envelopeOpened, musicVolume])
 
   return (
     <main
@@ -457,58 +484,100 @@ export default function App() {
             }}
           />
 
+          {/* Compact music icon and expandable controls */}
           <div
             style={{
               position: 'fixed',
-              right: '12px',
-              bottom: '14px',
+              right: '14px',
+              bottom: '18px',
               zIndex: 10000,
-              width: '175px',
-              padding: '10px',
-              boxSizing: 'border-box',
-              background: '#fffaf1',
-              border: '1px solid #c9942a',
-              borderRadius: '12px',
-              boxShadow: '0 2px 12px #0002',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-end',
+              gap: '8px',
             }}
           >
+            {musicControlsOpen && (
+              <div
+                style={{
+                  width: '190px',
+                  padding: '12px',
+                  boxSizing: 'border-box',
+                  background: '#fffaf1',
+                  border: '1px solid #c9942a',
+                  borderRadius: '12px',
+                  boxShadow: '0 3px 16px #0003',
+                  color: '#3b2417',
+                }}
+              >
+                <button
+                  type="button"
+                  onClick={toggleMusic}
+                  style={{
+                    width: '100%',
+                    padding: '9px 8px',
+                    background: '#5a3200',
+                    color: 'white',
+                    border: 0,
+                    borderRadius: '7px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {musicPlaying ? 'Ⅱ Pause music' : '▶ Play music'}
+                </button>
+
+                <label
+                  htmlFor="background-volume"
+                  style={{
+                    display: 'block',
+                    marginTop: '9px',
+                    marginBottom: '4px',
+                    fontSize: '12px',
+                  }}
+                >
+                  Music volume: {Math.round(musicVolume * 100)}%
+                </label>
+
+                <input
+                  id="background-volume"
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.05"
+                  value={musicVolume}
+                  onChange={(event) => changeMusicVolume(event.target.value)}
+                  style={{ width: '100%', cursor: 'pointer' }}
+                />
+              </div>
+            )}
+
             <button
               type="button"
-              onClick={toggleMusic}
+              aria-label={
+                musicControlsOpen
+                  ? 'Close music controls'
+                  : 'Open music controls'
+              }
+              aria-expanded={musicControlsOpen}
+              onClick={() => setMusicControlsOpen((open) => !open)}
+              title="Music controls"
               style={{
-                width: '100%',
-                padding: '8px',
+                width: '46px',
+                height: '46px',
+                borderRadius: '50%',
+                border: '1px solid #e2bd7a',
                 background: '#5a3200',
-                color: 'white',
-                border: 0,
-                borderRadius: '6px',
+                color: '#fff4d6',
+                boxShadow: '0 2px 10px #0003',
+                fontSize: '23px',
                 cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
-              {musicPlaying ? 'Ⅱ Pause music' : '▶ Play music'}
+              {musicPlaying ? '♫' : '♪'}
             </button>
-
-            <label
-              htmlFor="background-volume"
-              style={{
-                display: 'block',
-                marginTop: '8px',
-                fontSize: '12px',
-              }}
-            >
-              Music volume: {Math.round(musicVolume * 100)}%
-            </label>
-
-            <input
-              id="background-volume"
-              type="range"
-              min="0"
-              max="1"
-              step="0.05"
-              value={musicVolume}
-              onChange={(event) => changeMusicVolume(event.target.value)}
-              style={{ width: '100%' }}
-            />
           </div>
 
           <HeroSlide />
