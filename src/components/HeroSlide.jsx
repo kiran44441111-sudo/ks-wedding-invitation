@@ -73,7 +73,16 @@ export default function HeroSlide() {
             margin: '0',
           }}
         >
-          Kiran Sree
+          <span
+            style={{
+              WebkitTextStroke: '1.44px #D4AF37',
+              paintOrder: 'stroke fill',
+              textShadow: '0 0 8px rgba(212, 175, 55, 0.25)',
+            }}
+          >
+            Kiran Sree
+          </span>
+
           <span
             style={{
               display: 'block',
@@ -83,7 +92,16 @@ export default function HeroSlide() {
           >
             &amp;
           </span>
-          Srikanth
+
+          <span
+            style={{
+              WebkitTextStroke: '1.44px #D4AF37',
+              paintOrder: 'stroke fill',
+              textShadow: '0 0 8px rgba(212, 175, 55, 0.25)',
+            }}
+          >
+            Srikanth
+          </span>
         </motion.h1>
 
         <motion.p

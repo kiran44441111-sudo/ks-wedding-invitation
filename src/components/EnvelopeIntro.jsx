@@ -1,19 +1,17 @@
 
 import { motion } from 'framer-motion'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 
 export default function EnvelopeIntro({ onComplete }) {
   const [opened, setOpened] = useState(false)
   const musicRef = useRef(null)
-
-  
 
   const handleTap = async () => {
     if (opened) return
 
     setOpened(true)
 
-    // Start the background music when the guest taps the envelope.
+    // Start music from the guest's tap.
     try {
       if (musicRef.current) {
         await musicRef.current.play()
@@ -22,31 +20,36 @@ export default function EnvelopeIntro({ onComplete }) {
       console.log('Background music could not start:', error)
     }
 
-    // Play the envelope-opening animation.
+    // Let the scroll animation finish before moving to the invitation.
     setTimeout(() => {
       sessionStorage.setItem('invited', 'true')
       onComplete()
-    }, 2000)
+    }, 2600)
   }
 
   return (
-    <div
+    <motion.div
       onClick={handleTap}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: opened ? 0 : 1 }}
+      transition={{ duration: opened ? 0.7 : 0.8 }}
       style={{
         position: 'fixed',
         inset: 0,
-        background: '#f5ece0',
+        background:
+          'radial-gradient(ellipse at center, #4b1720 0%, #250b10 70%, #160609 100%)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        cursor: 'pointer',
+        cursor: opened ? 'default' : 'pointer',
         zIndex: 9999,
-        padding: '20px',
+        padding: '24px',
         boxSizing: 'border-box',
+        overflow: 'hidden',
+        perspective: '1200px',
       }}
     >
-      {/* Background music: begins after the guest taps the envelope. */}
       <audio
         ref={musicRef}
         src="/wedding-music.mp3"
@@ -54,54 +57,149 @@ export default function EnvelopeIntro({ onComplete }) {
         preload="auto"
       />
 
-      <motion.img
-        src="/envelope.jpeg"
-        alt="Wedding invitation envelope"
-        style={{
-          width: 'min(80vw, 420px)',
-          maxHeight: '65vh',
-          objectFit: 'contain',
-        }}
+      {/* Gentle golden glow */}
+      <motion.div
         animate={
           opened
-            ? { y: 80, opacity: 0, scale: 0.9 }
-            : { y: [0, -8, 0] }
+            ? { opacity: 0, scale: 1.5 }
+            : {
+                opacity: [0.2, 0.55, 0.2],
+                scale: [0.94, 1.06, 0.94],
+              }
         }
         transition={
           opened
-            ? { duration: 0.8 }
-            : { duration: 2, repeat: Infinity }
+            ? { duration: 0.6 }
+            : { duration: 3, repeat: Infinity, ease: 'easeInOut' }
         }
+        style={{
+          position: 'absolute',
+          width: 'min(100vw, 520px)',
+          aspectRatio: '1',
+          borderRadius: '50%',
+          background:
+            'radial-gradient(circle, rgba(218,169,83,0.35), transparent 68%)',
+          pointerEvents: 'none',
+        }}
       />
 
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: opened ? 0 : 1 }}
+      {/* Original burgundy-and-gold scroll artwork */}
+      <motion.div
+        initial={{ opacity: 0, y: 24, scale: 0.94 }}
+        animate={
+          opened
+            ? {
+                opacity: [1, 1, 0],
+                y: [0, -8, -55],
+                scaleX: [1, 0.78, 1.04],
+                scaleY: [1, 0.96, 1.08],
+                rotateX: [0, -5, 0],
+                rotateZ: [0, 0, -2],
+              }
+            : {
+                opacity: 1,
+                y: [0, -7, 0],
+                scale: 1,
+                rotateX: 0,
+                rotateZ: 0,
+              }
+        }
+        transition={
+          opened
+            ? {
+                duration: 2.2,
+                times: [0, 0.55, 1],
+                ease: [0.22, 1, 0.36, 1],
+              }
+            : {
+                opacity: { duration: 0.8 },
+                y: {
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                },
+                scale: { duration: 0.8 },
+              }
+        }
         style={{
-          color: '#7b263a',
-          fontFamily: 'Georgia, serif',
-          fontSize: '18px',
-          marginTop: '24px',
-          textAlign: 'center',
+          position: 'relative',
+          width: 'min(84vw, 410px)',
+          maxHeight: '65vh',
+          display: 'flex',
+          justifyContent: 'center',
+          transformOrigin: 'center center',
+          transformStyle: 'preserve-3d',
+          filter:
+            'drop-shadow(0 24px 30px rgba(0,0,0,0.45))',
         }}
       >
-        {opened
-          ? 'Opening your invitation…'
-          : 'Tap to open your invitation'}
-      </motion.p>
+        <img
+          src="/envelope.jpeg"
+          alt="Burgundy and gold wedding invitation scroll with gold seal"
+          draggable={false}
+          style={{
+            display: 'block',
+            width: '100%',
+            maxHeight: '65vh',
+            objectFit: 'contain',
+            borderRadius: '3px',
+            userSelect: 'none',
+          }}
+        />
+      </motion.div>
 
-      {!opened && (
+      {/* Instructions */}
+      <motion.div
+        animate={{
+          opacity: opened ? 0 : 1,
+          y: opened ? 12 : 0,
+        }}
+        transition={{ duration: 0.3 }}
+        style={{
+          position: 'relative',
+          marginTop: '24px',
+          textAlign: 'center',
+          color: '#f0d5a0',
+          fontFamily: 'Georgia, serif',
+        }}
+      >
         <p
           style={{
-            color: '#7b263a',
-            fontSize: '12px',
-            marginTop: '8px',
-            textAlign: 'center',
+            fontSize: '19px',
+            letterSpacing: '1px',
+            margin: '0 0 12px',
           }}
         >
-          Tap to enter with music
+          {opened
+            ? 'Unfurling your invitation…'
+            : 'A Royal Invitation Awaits'}
         </p>
-      )}
-    </div>
+
+        {!opened && (
+          <>
+            <motion.div
+              animate={{ opacity: [0.4, 1, 0.4] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              style={{
+                width: '60px',
+                height: '1px',
+                background: '#d5ad63',
+                margin: '0 auto 13px',
+              }}
+            />
+
+            <p
+              style={{
+                fontSize: '12px',
+                letterSpacing: '3px',
+                margin: 0,
+              }}
+            >
+              TAP TO UNFURL
+            </p>
+          </>
+        )}
+      </motion.div>
+    </motion.div>
   )
 }
