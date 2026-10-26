@@ -40,7 +40,7 @@ export default function FinalSlide({ dateRevealed }) {
         position: 'relative',
         isolation: 'isolate',
         minHeight: '100vh',
-        padding: '60px 22px',
+        padding: '60px 22px 30px',
         boxSizing: 'border-box',
         display: 'flex',
         flexDirection: 'column',
@@ -269,6 +269,82 @@ export default function FinalSlide({ dateRevealed }) {
             B. SURYA KIRAN &amp; B. S. JAYA SREE
           </motion.p>
         </motion.div>
+
+      {/* Minimal KSK Projects creator credit */}
+<motion.div
+  variants={fadeUp}
+  style={{
+    marginTop: '18px',
+    padding: '7px 10px',
+    border: '1px solid rgba(226, 189, 122, 0.4)',
+    borderRadius: '7px',
+    background: 'rgba(35, 20, 28, 0.5)',
+    color: '#e9dcc9',
+    maxWidth: '250px',
+    width: '100%',
+    boxSizing: 'border-box',
+    lineHeight: 1.5,
+  }}
+>
+  <p
+    style={{
+      margin: 0,
+      fontSize: '8px',
+      letterSpacing: '1.5px',
+      color: '#d9bd83',
+    }}
+  >
+    INVITATION CREATED BY
+  </p>
+
+  <p
+    style={{
+      margin: '2px 0',
+      fontFamily: 'Georgia, serif',
+      fontSize: '12px',
+      letterSpacing: '1px',
+      color: '#f4d99c',
+    }}
+  >
+    KSK PROJECTS
+  </p>
+
+  <p
+    style={{
+      margin: 0,
+      fontSize: '9px',
+      color: '#e9dcc9',
+    }}
+  >
+    Digital Invitations & Creative Projects
+  </p>
+
+  <div
+    style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexWrap: 'wrap',
+      gap: '2px 9px',
+      marginTop: '4px',
+      fontSize: '9px',
+    }}
+  >
+    <a
+      href="tel:9291261194"
+      style={{ color: '#f4d99c', textDecoration: 'none' }}
+    >
+      ☎ 9291261194
+    </a>
+
+    <a
+      href="mailto:kiran44441111@gmail.com"
+      style={{ color: '#f4d99c', textDecoration: 'none' }}
+    >
+      ✉ Email
+    </a>
+  </div>
+</motion.div>
       </motion.div>
     </section>
   )
