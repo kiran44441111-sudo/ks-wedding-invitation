@@ -24,7 +24,7 @@ export default function EnvelopeIntro({ onComplete }) {
     setTimeout(() => {
       sessionStorage.setItem('invited', 'true')
       onComplete()
-    }, 2600)
+    }, 1400)
   }
 
   return (
@@ -107,7 +107,7 @@ export default function EnvelopeIntro({ onComplete }) {
         transition={
           opened
             ? {
-                duration: 2.2,
+                duration: 1.1,
                 times: [0, 0.55, 1],
                 ease: [0.22, 1, 0.36, 1],
               }
