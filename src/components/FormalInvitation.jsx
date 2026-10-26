@@ -153,12 +153,18 @@ export default function FormalInvitation() {
             with
           </motion.p>
 
-          <motion.h2
-            variants={fadeUp}
-            style={{ fontSize: '32px', margin: '8px 0' }}
-          >
-            Chi. Srikanth
-          </motion.h2>
+          
+<motion.h2
+  variants={fadeUp}
+  style={{
+    color: '#f0c4d5',
+    fontSize: '32px',
+    margin: '8px 0',
+  }}
+>
+  Chi. Srikanth
+</motion.h2>
+
 
           <motion.p
             variants={fadeUp}
