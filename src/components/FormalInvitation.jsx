@@ -82,7 +82,7 @@ export default function FormalInvitation() {
             style={{ fontSize: '15px', lineHeight: 1.8 }}
           >
             With the blessings of the Almighty, we cordially invite you
-            to bless the wedding of our beloved daughter.
+            to bless the wedding of our beloved youngest daughter.
           </motion.p>
 
           <motion.p
@@ -94,7 +94,7 @@ export default function FormalInvitation() {
               lineHeight: 2,
             }}
           >
-            భగవంతుని ఆశీస్సులతో మా ప్రియమైన కుమార్తె వివాహానికి
+            భగవంతుని ఆశీస్సులతో మా ప్రియమైన కనిష్ఠ కుమార్తె వివాహానికి
             విచ్చేసి ఆశీర్వదించవలసిందిగా మనస్ఫూర్తిగా ఆహ్వానిస్తున్నాము.
           </motion.p>
 
@@ -106,8 +106,21 @@ export default function FormalInvitation() {
               margin: '22px 0 8px',
             }}
           >
-            Chi. Sow. Kiran Sree
+            Chi. La. Sow. Kiran Sree
           </motion.h1>
+
+{/* Bride's qualifications */}
+<motion.p
+  variants={fadeUp}
+  style={{ 
+    color: '#e2bd7a',
+    fontSize: '14px', 
+    lineSpacing: '0.5px',
+    margin: '0 0 10px',
+    }}
+>
+  B.Tech | M.Sc. | LLB
+</motion.p>
 
           <motion.p
             variants={fadeUp}
@@ -118,14 +131,14 @@ export default function FormalInvitation() {
               fontStyle: 'italic',
             }}
           >
-            (చి. సౌ. కిరణ్ శ్రీ)
+            (చి. ల. సౌ. కిరణ్ శ్రీ)
           </motion.p>
 
           <motion.p
             variants={fadeUp}
             style={{ fontSize: '14px', lineHeight: 1.8 }}
           >
-            (Youngest D/o. Smt. Jaya Sree &amp; Sri. B. Surya Kiran)
+            (D/o. Smt. Jaya Sree &amp; Sri. B. Surya Kiran)
           </motion.p>
 
           <motion.p
@@ -138,7 +151,7 @@ export default function FormalInvitation() {
               lineHeight: 2,
             }}
           >
-            (శ్రీమతి జయ శ్రీ &amp; శ్రీ బి. సూర్య కిరణ్ గారి కనిష్ఠ కుమార్తె)
+            (శ్రీమతి జయ శ్రీ &amp; శ్రీ బి. సూర్య కిరణ్ గారి కుమార్తె)
           </motion.p>
 
           <motion.p
@@ -165,6 +178,18 @@ export default function FormalInvitation() {
   Chi. Srikanth
 </motion.h2>
 
+{/* Groom's qualifications */}
+<motion.p
+  variants={fadeUp}
+  style={{ 
+    color: '#e2bd7a',
+    fontSize: '14px', 
+    lineSpacing: '0.5px',
+    margin: '0 0 10px',
+    }}
+>
+  B.Com | LLB
+</motion.p>
 
           <motion.p
             variants={fadeUp}

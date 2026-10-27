@@ -131,24 +131,7 @@ export default function FinalSlide({ dateRevealed }) {
           even more meaningful.
         </motion.p>
 
-        <motion.p
-          variants={fadeUp}
-          lang="te"
-          style={{
-            fontFamily: '"Noto Sans Telugu", sans-serif',
-            fontSize: '15px',
-            lineHeight: 1.9,
-            maxWidth: '450px',
-            margin: '0 0 20px',
-          }}
-        >
-          మా కనిష్ఠ కుమార్తె కిరణ్ శ్రీ మరియు శ్రీకాంత్‌ల పవిత్ర వివాహ
-          వేడుకకు మీ అమూల్యమైన సమక్షాన్ని, ప్రేమను, ఆశీర్వాదాలను
-          అందించవలసిందిగా సంతోషంగా ఆహ్వానిస్తున్నాము.
-          <br />
-          మీ రాక, ప్రేమ, ఆశీర్వాదాలు మా ప్రత్యేకమైన రోజును మరింత
-          అర్థవంతంగా మారుస్తాయి.
-        </motion.p>
+  
 
         <motion.div
           variants={fadeUp}

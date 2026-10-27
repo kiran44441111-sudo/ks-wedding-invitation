@@ -22,7 +22,7 @@ export default function EventSlide({
         alignItems: 'center',
         textAlign: 'center',
         background: '#fdf8f0',
-        color: '#1a0800',
+        color: '#ffffff',
       }}
     >
       <p

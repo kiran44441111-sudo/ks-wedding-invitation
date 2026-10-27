@@ -169,18 +169,7 @@ function ScratchReveal({ onReveal }) {
                     fontFamily: 'Georgia, serif',
                   }}
                 >
-                  SUMUHURTAM
-                </p>
-
-                <p
-                  lang="te"
-                  style={{
-                    fontFamily: '"Noto Sans Telugu", sans-serif',
-                    fontSize: '21px',
-                    margin: '4px 0 14px',
-                  }}
-                >
-                  శుభ ముహూర్తం
+                
                 </p>
 
                 <p

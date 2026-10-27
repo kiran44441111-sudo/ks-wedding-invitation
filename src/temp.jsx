@@ -1,9 +1,10 @@
+
 import { useRef, useState } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
 
 import EnvelopeIntro from './components/EnvelopeIntro'
 import HeroSlide from './components/HeroSlide'
-import FormalInvitation from './components/FormalInvitation'
+import EventSlide from './components/EventSlide'
 import EngagementVideo from './components/EngagementVideo'
 import FinalSlide from './components/FinalSlide'
 
@@ -53,7 +54,7 @@ function ScratchReveal() {
     ctx.fillStyle = '#fff3d3'
     ctx.font = '18px Georgia'
     ctx.textAlign = 'center'
-    ctx.fillText('✧ SCRATCH HERE ✧', rect.width / 2, rect.height / 2)
+    ctx.fillText('✧  SCRATCH HERE  ✧', rect.width / 2, rect.height / 2)
 
     canvas.dataset.ready = 'true'
   }
@@ -61,7 +62,6 @@ function ScratchReveal() {
   return (
     <section
       style={{
-        position: 'relative',
         minHeight: '90vh',
         padding: '70px 20px',
         boxSizing: 'border-box',
@@ -70,252 +70,92 @@ function ScratchReveal() {
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
-        overflow: 'hidden',
+        background: 'linear-gradient(#fffaf1, #f2e1c8)',
         color: '#5a3200',
       }}
     >
-      <img
-        src="/couple-3.jpeg"
-        alt=""
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: 'center',
-        }}
-      />
+      <p style={{ letterSpacing: '4px', color: '#a87928' }}>
+        A SACRED BEGINNING
+      </p>
 
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'rgba(255, 248, 235, 0.84)',
-        }}
-      />
+      <h2 style={{ fontFamily: 'Georgia, serif', fontSize: '38px', fontWeight: 400 }}>
+        Sumuhurtam
+      </h2>
 
-      <div style={{ position: 'relative', width: '100%', maxWidth: '390px' }}>
-        <p style={{ letterSpacing: '4px', color: '#a87928' }}>
-          A SACRED BEGINNING
-        </p>
-
-        <h2 style={{ fontFamily: 'Georgia, serif', fontSize: '38px', fontWeight: 400 }}>
-          Sumuhurtam
-        </h2>
-
-        <p
-          lang="te"
-          style={{ fontFamily: '"Noto Sans Telugu", sans-serif', fontSize: '20px' }}
-        >
-          శుభ ముహూర్తం
-        </p>
-
-        <p>Scratch the golden panel to reveal our auspicious wedding time.</p>
-
-        <p
-          lang="te"
-          style={{ fontFamily: '"Noto Sans Telugu", sans-serif', fontSize: '14px', lineHeight: 1.9 }}
-        >
-          శుభ ముహూర్త సమయాన్ని తెలుసుకోవడానికి బంగారు కార్డును గీకండి.
-        </p>
-
-        <div
-          style={{
-            position: 'relative',
-            width: '100%',
-            minHeight: '200px',
-            marginTop: '24px',
-            border: '1px solid #c9942a',
-            borderRadius: '16px',
-            overflow: 'hidden',
-            background: '#fffdf7',
-          }}
-        >
-          <div
-            style={{
-              minHeight: '200px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '16px',
-              boxSizing: 'border-box',
-            }}
-          >
-            {revealed ? (
-              <>
-                <p style={{ margin: '4px', letterSpacing: '2px' }}>
-                  SUMUHURTAM
-                </p>
-                <p
-                  lang="te"
-                  style={{ fontFamily: '"Noto Sans Telugu", sans-serif', margin: '4px' }}
-                >
-                  శుభ ముహూర్తం
-                </p>
-                <h3 style={{ fontSize: '25px', margin: '8px 0' }}>
-                  21 November 2026
-                </h3>
-                <p
-                  lang="te"
-                  style={{ fontFamily: '"Noto Sans Telugu", sans-serif', margin: '4px' }}
-                >
-                  21 నవంబర్ 2026
-                </p>
-                <p style={{ margin: '6px' }}>Saturday</p>
-                <p
-                  lang="te"
-                  style={{ fontFamily: '"Noto Sans Telugu", sans-serif', margin: '4px' }}
-                >
-                  శనివారం
-                </p>
-                <p style={{ fontSize: '20px', margin: '6px' }}>10:04 AM IST</p>
-                <p
-                  lang="te"
-                  style={{ fontFamily: '"Noto Sans Telugu", sans-serif', margin: '4px' }}
-                >
-                  ఉదయం 10:04 గంటలకు
-                </p>
-              </>
-            ) : (
-              <p style={{ color: '#9a7a43', fontStyle: 'italic' }}>
-                Scratch to discover the details
-              </p>
-            )}
-          </div>
-
-          {!revealed && (
-            <canvas
-              ref={(canvas) => {
-                canvasRef.current = canvas
-                if (canvas) prepareCanvas(canvas)
-              }}
-              onPointerDown={(event) => {
-                event.currentTarget.setPointerCapture(event.pointerId)
-                scratch(event)
-              }}
-              onPointerMove={(event) => {
-                if (event.buttons === 1 || event.pointerType === 'touch') {
-                  scratch(event)
-                }
-              }}
-              style={{
-                position: 'absolute',
-                inset: 0,
-                width: '100%',
-                height: '100%',
-                touchAction: 'none',
-                cursor: 'crosshair',
-              }}
-            />
-          )}
-        </div>
-
-        <p style={{ fontSize: '13px', fontStyle: 'italic' }}>
-          {scratched && !revealed
-            ? 'Keep scratching to uncover the details.'
-            : !revealed
-              ? 'Use your finger or mouse.'
-              : 'We look forward to celebrating with you!'}
-        </p>
-      </div>
-    </section>
-  )
-}
-
-function VenueSection() {
-  const mapsUrl = 'https://maps.app.goo.gl/6yiKNUjqboTfZ7PCA'
-
-  return (
-    <section
-      style={{
-        position: 'relative',
-        minHeight: '75vh',
-        padding: '70px 20px',
-        boxSizing: 'border-box',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-        textAlign: 'center',
-        color: '#fff4e5',
-      }}
-    >
-      <img
-        src="/couple-2.jpeg"
-        alt=""
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: 'center',
-        }}
-      />
-
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'rgba(32, 18, 20, 0.62)',
-        }}
-      />
+      <p>Scratch the golden panel to reveal our auspicious wedding time.</p>
 
       <div
         style={{
           position: 'relative',
           width: '100%',
-          maxWidth: '390px',
-          padding: '30px 20px',
-          boxSizing: 'border-box',
-          background: 'rgba(35, 20, 28, 0.78)',
+          maxWidth: '340px',
+          minHeight: '170px',
+          marginTop: '24px',
           border: '1px solid #c9942a',
           borderRadius: '16px',
+          overflow: 'hidden',
+          background: '#fffdf7',
         }}
       >
-        <h2 style={{ fontFamily: 'Georgia, serif', fontWeight: 400, fontSize: '32px' }}>
-          📍 VENUE
-        </h2>
-
-        <p
-          lang="te"
-          style={{ fontFamily: '"Noto Sans Telugu", sans-serif', fontSize: '22px' }}
-        >
-          వేదిక
-        </p>
-
-        <h3 style={{ color: '#e2bd7a', fontSize: '21px' }}>
-          Subham A/C Banquet Hall
-        </h3>
-
-        <p style={{ fontSize: '15px', lineHeight: 1.9 }}>
-          2nd Floor, Magadha Towers, H. No. 1,
-          Opposite Union Bank, Zamistanpur,
-          Ramnagar, Hyderabad, Telangana – 500044.
-        </p>
-
-        <a
-          href={mapsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+        <div
           style={{
-            display: 'inline-block',
-            marginTop: '16px',
-            padding: '12px 18px',
-            color: '#4a2c13',
-            background: '#e2bd7a',
-            borderRadius: '8px',
-            textDecoration: 'none',
-            fontWeight: 'bold',
+            minHeight: '170px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '16px',
+            boxSizing: 'border-box',
           }}
         >
-          📍 View Location on Maps / లొకేషన్ చూడండి
-        </a>
+          <p style={{ margin: '4px' }}>OUR WEDDING DAY</p>
+          <h3 style={{ fontSize: '26px', margin: '8px' }}>
+            21 November 2026
+          </h3>
+          <p style={{ fontSize: '20px', margin: '6px' }}>
+            10:04 AM IST
+          </p>
+          <p style={{ fontStyle: 'italic', margin: '6px' }}>
+            Subham A/C Banquet Hall
+          </p>
+        </div>
+
+        {!revealed && (
+          <canvas
+            ref={(canvas) => {
+              canvasRef.current = canvas
+              if (canvas) prepareCanvas(canvas)
+            }}
+            onPointerDown={(event) => {
+              event.currentTarget.setPointerCapture(event.pointerId)
+              scratch(event)
+            }}
+            onPointerMove={(event) => {
+              if (event.buttons === 1 || event.pointerType === 'touch') {
+                scratch(event)
+              }
+            }}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              touchAction: 'none',
+              cursor: 'crosshair',
+            }}
+          />
+        )}
       </div>
+
+      {revealed && (
+        <p style={{ color: '#8a3048', fontWeight: 'bold' }}>
+          We look forward to celebrating with you!
+        </p>
+      )}
+
+      <p style={{ fontSize: '13px', fontStyle: 'italic' }}>
+        {scratched ? 'Keep scratching to uncover the details.' : 'Use your finger or mouse.'}
+      </p>
     </section>
   )
 }
@@ -335,6 +175,8 @@ export default function App() {
   function openInvitation() {
     const audio = musicRef.current
 
+    // This function must be called directly from the envelope click
+    // for browsers to allow background music playback.
     if (audio) {
       audio.volume = musicVolume
       audio.play()
@@ -457,22 +299,28 @@ export default function App() {
             />
           </div>
 
-          {/* Page 2: Original couple introduction */}
+          {/* Page 2: Invitation and venue */}
           <HeroSlide />
 
-          {/* Page 3: Formal invitation from the bride's family */}
-          <FormalInvitation />
+          <EventSlide
+            label="OUR WEDDING DAY"
+            heading="The Wedding"
+            headingColor="#5a3200"
+            description="With the blessings of our families, we invite you to celebrate our special day."
+            date="21 November 2026"
+            time="10:04 AM"
+            venue="Subham A/C Banquet Hall, 2nd Floor, Magadha Towers, H.No. 1, opposite Union Bank, Zamistanpur, Ramnagar, Hyderabad, Telangana 500044"
+            dressCode="Traditional attire"
+            mapsUrl="https://maps.app.goo.gl/6yiKNUjqboTfZ7PCA"
+          />
 
-          {/* Page 4: Scratch-to-reveal Sumuhurtam */}
+          {/* Page 3: Scratch to reveal Sumuhurtam */}
           <ScratchReveal />
 
-          {/* Page 5: Venue with clickable Google Maps link */}
-          <VenueSection />
-
-          {/* Page 6: Engagement video */}
+          {/* Page 4: Engagement video */}
           <EngagementVideo />
 
-          {/* Page 7: Final gratitude page */}
+          {/* Page 5: Thank-you message and countdown */}
           <FinalSlide />
         </>
       )}
