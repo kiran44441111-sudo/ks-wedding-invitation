@@ -3,12 +3,21 @@ import { motion } from 'framer-motion'
 import { fadeUp, fadeLeft, stagger } from '../animations'
 
 export default function FormalInvitation() {
+  const dholVideoStyle = {
+    width: 'clamp(70px, 23vw, 100px)',
+    height: 'clamp(70px, 23vw, 100px)',
+    objectFit: 'contain',
+    flexShrink: 1,
+    minWidth: 0,
+    mixBlendMode: 'multiply',
+  }
+
   return (
     <section
       style={{
         position: 'relative',
         minHeight: '100svh',
-        padding: '55px 16px',
+        padding: '35px 12px',
         boxSizing: 'border-box',
         display: 'flex',
         alignItems: 'center',
@@ -17,10 +26,11 @@ export default function FormalInvitation() {
         background: '#fdf8f0',
       }}
     >
-      {/* Background: couple-main.jpeg */}
+      {/* Existing background */}
       <img
         src="/couple-main.jpeg"
-        alt="Kiran Sree and Srikanth"
+        alt=""
+        aria-hidden="true"
         style={{
           position: 'absolute',
           inset: 0,
@@ -31,8 +41,9 @@ export default function FormalInvitation() {
         }}
       />
 
-      {/* Dark overlay for readability */}
+      {/* Readability overlay */}
       <div
+        aria-hidden="true"
         style={{
           position: 'absolute',
           inset: 0,
@@ -40,7 +51,7 @@ export default function FormalInvitation() {
         }}
       />
 
-      {/* Animated formal invitation card */}
+      {/* Formal invitation card */}
       <motion.div
         variants={fadeUp}
         initial="hidden"
@@ -51,7 +62,7 @@ export default function FormalInvitation() {
           width: '100%',
           maxWidth: '390px',
           boxSizing: 'border-box',
-          padding: '30px 18px',
+          padding: '24px 14px',
           textAlign: 'center',
           color: '#fff4e5',
           background: 'rgba(35, 20, 28, 0.78)',
@@ -66,12 +77,31 @@ export default function FormalInvitation() {
           whileInView="visible"
           viewport={{ once: true }}
         >
+          {/* Kalasham image at the top center */}
+          <motion.img
+            src="/formal2.png"
+            alt="Traditional Kalasham"
+            variants={fadeUp}
+            initial={{ opacity: 0, y: -12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            style={{
+              display: 'block',
+              width: '90px',
+              height: '90px',
+              objectFit: 'contain',
+              margin: '0 auto 8px',
+            }}
+          />
+
           <motion.p
             variants={fadeLeft}
             style={{
               color: '#e2bd7a',
               letterSpacing: '3px',
               fontSize: '12px',
+              marginTop: 0,
             }}
           >
             WEDDING INVITATION
@@ -102,25 +132,13 @@ export default function FormalInvitation() {
             variants={fadeUp}
             style={{
               color: '#f0c4d5',
-              fontSize: 'clamp(27px, 7vw, 38px)',
+              fontSize: 'clamp(20px, 5.5vw, 30px)',
+              whiteSpace: 'nowrap',
               margin: '22px 0 8px',
             }}
           >
             Chi. La. Sow. Kiran Sree
           </motion.h1>
-
-{/* Bride's qualifications */}
-<motion.p
-  variants={fadeUp}
-  style={{ 
-    color: '#e2bd7a',
-    fontSize: '14px', 
-    lineSpacing: '0.5px',
-    margin: '0 0 10px',
-    }}
->
-  B.Tech | M.Sc. | LLB
-</motion.p>
 
           <motion.p
             variants={fadeUp}
@@ -154,42 +172,65 @@ export default function FormalInvitation() {
             (శ్రీమతి జయ శ్రీ &amp; శ్రీ బి. సూర్య కిరణ్ గారి కుమార్తె)
           </motion.p>
 
-          <motion.p
+          {/* Larger looping dhol videos around "with" */}
+          <motion.div
             variants={fadeUp}
             style={{
-              color: '#e2bd7a',
-              fontSize: '22px',
-              fontStyle: 'italic',
-              margin: '16px 0',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '6px',
+              margin: '12px auto',
+              width: '100%',
             }}
           >
-            with
-          </motion.p>
+            {/* Left dhol */}
+            <video
+              src="/formal4.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              aria-label="Decorative left dhol animation"
+              style={dholVideoStyle}
+            />
 
-          
-<motion.h2
-  variants={fadeUp}
-  style={{
-    color: '#f0c4d5',
-    fontSize: '32px',
-    margin: '8px 0',
-  }}
->
-  Chi. Srikanth
-</motion.h2>
+            <p
+              style={{
+                color: '#e2bd7a',
+                fontSize: '22px',
+                fontStyle: 'italic',
+                margin: 0,
+                flexShrink: 0,
+              }}
+            >
+              with
+            </p>
 
-{/* Groom's qualifications */}
-<motion.p
-  variants={fadeUp}
-  style={{ 
-    color: '#e2bd7a',
-    fontSize: '14px', 
-    lineSpacing: '0.5px',
-    margin: '0 0 10px',
-    }}
->
-  B.Com | LLB
-</motion.p>
+            {/* Right dhol */}
+            <video
+              src="/formal3.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              aria-label="Decorative right dhol animation"
+              style={dholVideoStyle}
+            />
+          </motion.div>
+
+          <motion.h2
+            variants={fadeUp}
+            style={{
+              color: '#f0c4d5',
+              fontSize: '32px',
+              margin: '8px 0',
+            }}
+          >
+            Chi. Srikanth
+          </motion.h2>
 
           <motion.p
             variants={fadeUp}
@@ -223,14 +264,7 @@ export default function FormalInvitation() {
             (శ్రీమతి సరిత &amp; శ్రీ కె. శ్రీనివాస్ గారి కుమారుడు)
           </motion.p>
 
-          <motion.div
-            variants={fadeUp}
-            style={{
-              borderTop: '1px solid rgba(226, 189, 122, 0.65)',
-              marginTop: '22px',
-              paddingTop: '16px',
-            }}
-          />
+          {/* Bottom divider removed */}
         </motion.div>
       </motion.div>
     </section>
